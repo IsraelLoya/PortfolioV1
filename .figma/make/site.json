@@ -1,0 +1,11 @@
+{
+  "title": "my potfolio",
+  "description": "A personal portfolio for showcasing projects and certifications, with placeholder content ready to customize and share.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

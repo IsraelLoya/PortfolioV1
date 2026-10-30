@@ -176,10 +176,10 @@ function AboutSection() {
         
         <div className="max-w-4xl">
           <p className="font-['Poppins:Regular',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5] mb-8">
-            I’m a federal security professional with hands-on experience in technical equipment, workplace safety, documentation, employee training, and problem resolution.
+            I’m a versatile operations and technology professional with experience in federal security, workplace safety, employee development, technical support, and procedural compliance. My work includes operating and monitoring screening systems, performing equipment readiness checks, compiling operational data, documenting findings, and coordinating corrective actions.
           </p>
           <p className="font-['Poppins:Regular',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5]">
-            Alongside my work with the Transportation Security Administration, I’m pursuing a bachelor’s degree in Software Development at Collin College and bring years of practical experience building, maintaining, and troubleshooting custom computers.
+            Alongside my work with the Transportation Security Administration, I’m pursuing a Bachelor of Applied Technology in Software Development at Collin College. I build and troubleshoot custom PCs, configure Windows systems, and develop responsive websites and web applications using modern development tools.
           </p>
         </div>
 
@@ -194,18 +194,29 @@ function AboutSection() {
               "PC Assembly",
               "Windows Configuration",
               "Technical Support",
+              "Screening Equipment",
+              "Equipment Readiness Checks",
+              "Operational Data Reporting",
               "Employee Training",
               "Safety Inspections",
-              "Documentation",
+              "Hazard Identification",
+              "SOP Compliance",
+              "Technical Documentation",
               "Problem Solving",
               "Java",
               "Python",
+              "C++",
               "HTML",
               "CSS",
               "Bootstrap",
               "React",
               "JavaScript",
+              "TypeScript",
+              "Vite",
               "SQL",
+              "Git & GitHub",
+              "Vercel",
+              "Microsoft Office",
             ].map((skill) => (
               <span
                 key={skill}
@@ -231,7 +242,7 @@ function AboutSection() {
                 Collin College · In Progress
               </p>
               <p className="font-['Poppins:Medium',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5]">
-                Coursework includes software engineering, application architecture, database management, full-stack development, and systems analysis.
+                Coursework and applied projects cover software development fundamentals, responsive web applications, React and Vite workflows, Git and GitHub version control, Vercel deployment, Java, Python, C++, SQL, relational database design, debugging, testing, and the software development lifecycle.
               </p>
             </div>
             <div>
@@ -252,29 +263,51 @@ function AboutSection() {
           </h3>
           <div className="space-y-12">
             <ExperienceItem
-              title="COLLATERAL DUTY SAFETY OFFICER"
-              period="U.S. Department of Homeland Security · Aug 2026 — Present"
-              description="Conduct workplace safety inspections to identify hazards, unsafe conditions, and operational risks. Document findings, coordinate corrective actions, maintain safety and incident records, and collaborate with employees and management to strengthen hazard awareness and support a proactive safety culture."
+              title="SAFETY OFFICER"
+              period="U.S. Department of Homeland Security · Transportation Security Administration · Aug 2026 — Present"
+              description={[
+                "Conduct routine workplace and operational-area safety inspections to identify hazards, unsafe conditions, ergonomic concerns, and practices that may increase the risk of employee injury.",
+                "Prepare clear inspection notes and safety reports, maintain documentation of observations, and communicate identified concerns and recommendations to supervisors and relevant personnel.",
+                "Collaborate with the facility safety team, supervisors, and employees to review workplace concerns, share observations, coordinate inspections, and help develop practical solutions to reduce operational risks.",
+                "Participate in safety discussions and team initiatives by communicating reported hazards, contributing to incident-prevention efforts, following up on assigned actions, and helping reinforce consistent safety practices across work areas.",
+                "Coordinate with management and employees to track reported hazards, monitor corrective-action progress, and support timely resolution and follow-up.",
+                "Promote safety awareness through employee engagement, briefings, reminders, and communication of safe work practices and hazard-prevention procedures.",
+                "Support compliance with agency safety policies, operational procedures, inspection practices, and incident or hazard-reporting requirements.",
+                "Identify recurring trends and potential risk areas, elevate concerns, and contribute practical recommendations to strengthen prevention efforts and day-to-day workplace safety.",
+              ]}
             />
             <ExperienceItem
               title="CERTIFIED COACH / EMPLOYEE TRAINER"
-              period="U.S. Department of Homeland Security · Jul 2023 — Present"
-              description="Train and mentor newly hired Transportation Security Officers on screening equipment, operational procedures, and workplace safety. Observe performance, evaluate procedural compliance, provide constructive feedback, and reinforce consistency, accuracy, accountability, and continuous improvement."
+              period="U.S. Department of Homeland Security · Transportation Security Administration · Jul 2023 — Present"
+              description={[
+                "Deliver hands-on onboarding and coaching for newly hired officers on screening equipment, passenger-screening procedures, alarm resolution, documentation, and workplace safety requirements.",
+                "Demonstrate equipment operation and standard procedures, observe practical performance, assess proficiency, document training progress, and provide timely, constructive feedback.",
+                "Support qualification and continued development by reinforcing procedural consistency, screening accuracy, professional communication, sound decision-making, and accountability.",
+              ]}
             />
             <ExperienceItem
               title="TRANSPORTATION SECURITY OFFICER (TSO)"
-              period="Transportation Security Administration, U.S. Department of Homeland Security · Aug 2019 — Present · Dallas–Fort Worth Metroplex"
-              description="Operate and troubleshoot X-ray, Advanced Imaging Technology, Explosives Trace Detection, and metal detection systems. Conduct passenger and baggage screening, maintain operational and incident records, report equipment or procedural concerns, and collaborate with supervisors, law enforcement, and maintenance personnel in a high-volume security environment."
+              period="U.S. Department of Homeland Security · Transportation Security Administration · Aug 2019 — Present"
+              description={[
+                "Operate, monitor, and troubleshoot X-ray, Advanced Imaging Technology (AIT), Explosives Trace Detection (ETD), and walk-through/handheld metal detection systems to support effective passenger and baggage screening.",
+                "Conduct passenger, baggage, and property screening in accordance with TSA directives, standard operating procedures, regulatory requirements, and established security protocols.",
+                "Perform routine equipment readiness checks and approved calibration or verification procedures; identify irregular readings, document equipment status, and coordinate maintenance when issues arise.",
+                "Collect and compile hourly operational figures, screening activity counts, and other performance data for shift reports; verify entries for accuracy and provide information to supervisors.",
+              ]}
             />
             <ExperienceItem
               title="ELECTRICAL INSTALLATION TECHNICIAN"
-              period="Price Electrical · 2018 — Dec 2022 · Royse City, Texas"
-              description="Completed rough-in and trim-out wiring for new residential construction in compliance with NEC requirements. Installed panels, breakers, outlets, switches, lighting, grounding systems, and service connections; interpreted blueprints, verified loads, and helped diagnose wiring faults and circuit failures."
+              period="Price Electrical · 2018 — Dec 2022"
+              description={[
+                "Installed and wired electrical systems in residential new-construction projects; interpreted blueprints and electrical plans, routed and terminated wiring, assisted with device and fixture installation, used hand and power tools, and helped troubleshoot installation issues. Followed job-site safety practices, coordinated with crew members and contractors, and supported inspections and project deadlines.",
+              ]}
             />
             <ExperienceItem
               title="SHIFT LEAD"
-              period="Academy Sports + Outdoors · Jan 2018 — Dec 2018 · Garland, Texas"
-              description="Led team members during assigned shifts, organized daily work, and supported efficient store operations. Read and followed planograms to ensure merchandise and store displays were set up accurately."
+              period="Academy Sports + Outdoors · Jan 2018 — Dec 2018"
+              description={[
+                "Supported daily retail operations by coordinating team assignments, assisting with opening and closing procedures, maintaining merchandising and planogram standards, monitoring task completion, resolving routine customer concerns, and helping keep the sales floor organized, safe, and customer-ready.",
+              ]}
             />
           </div>
         </div>
@@ -283,7 +316,15 @@ function AboutSection() {
   );
 }
 
-function ExperienceItem({ title, period, description }: { title: string; period: string; description: string }) {
+function ExperienceItem({
+  title,
+  period,
+  description,
+}: {
+  title: string;
+  period: string;
+  description: string[];
+}) {
   return (
     <div className="max-w-4xl">
       <h4 className="font-['Poppins:ExtraBold',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-1">
@@ -292,9 +333,17 @@ function ExperienceItem({ title, period, description }: { title: string; period:
       <p className="font-['Poppins:ExtraLight',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-3">
         {period}
       </p>
-      <p className="font-['Poppins:Medium',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5]">
-        {description}
-      </p>
+      <ul className="space-y-3">
+        {description.map((item) => (
+          <li
+            key={item}
+            className="flex gap-3 font-['Poppins:Medium',_sans-serif] text-[24px] leading-[1.5] text-[rgba(248,247,249,0.5)]"
+          >
+            <span aria-hidden="true">•</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -304,7 +353,7 @@ function ProjectsSection() {
     {
       title: "Custom PC Building & System Optimization",
       period: "Personal Project · Ongoing",
-      description: "Design, assemble, configure, and maintain custom desktop computers based on performance goals, budget, and component compatibility. Install Windows, drivers, applications, and system updates; complete hardware upgrades; and troubleshoot boot, thermal, performance, hardware, and software issues."
+      description: "Build, upgrade, configure, and maintain custom desktop computers from component selection through final setup. Complete compatibility checks, configure BIOS and UEFI settings, install Windows, drivers, applications, updates, and peripherals, and methodically troubleshoot boot, stability, performance, connectivity, hardware, and software issues."
     },
     {
       title: "IT Help Desk Ticketing Dashboard",
@@ -329,7 +378,7 @@ function ProjectsSection() {
     {
       title: "Personal Portfolio Website",
       period: "Web Development Project · Ongoing",
-      description: "A responsive React portfolio designed to present professional experience, education, certifications, technical skills, and project work. The site includes accessible navigation, persistent light and dark themes, reusable content sections, and polished interactions across desktop and mobile layouts."
+      description: "A responsive React and Vite portfolio designed to present professional experience, education, certifications, technical skills, and project work. The site uses Git and GitHub for version control and includes accessible navigation, persistent light and dark themes, reusable content sections, and polished interactions across desktop and mobile layouts."
     }
   ];
   const [openProject, setOpenProject] = useState(projects[0].title);
@@ -423,11 +472,6 @@ function CertificationsSection() {
       title: "TECHNICAL SUPPORT FUNDAMENTALS",
       year: "2023",
       organization: "Google"
-    },
-    {
-      title: "COMPTIA A+ CERTIFICATION",
-      year: "In Progress",
-      organization: "CompTIA"
     }
   ];
 
@@ -465,8 +509,8 @@ function ContactsSection() {
   const contactItems = [
     {
       label: "Email",
-      value: "izzyloya1234@gmail.com",
-      href: "mailto:izzyloya1234@gmail.com",
+      value: "IsraelLoya2222@gmail.com",
+      href: "mailto:IsraelLoya2222@gmail.com",
       icon: Mail,
     },
     {
@@ -501,10 +545,10 @@ function ContactsSection() {
                 Let&apos;s connect.
               </h2>
               <p className="mt-7 max-w-xl font-['Poppins:Regular',_sans-serif] text-[20px] leading-[1.6] text-[#f8f7f9]/50">
-                Have an opportunity, project, or role in mind? I&apos;d be glad to hear from you and discuss how my security, technical support, and software development experience can help.
+                Have an opportunity, project, or role in mind? I&apos;d be glad to discuss how my federal security, workplace safety, technical support, and software development experience can help your team.
               </p>
               <a
-                href="mailto:izzyloya1234@gmail.com"
+                href="mailto:IsraelLoya2222@gmail.com"
                 className="mt-9 inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3 font-['Poppins:Bold',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.2)]"
               >
                 Send me an email

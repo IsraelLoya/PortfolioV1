@@ -54,7 +54,7 @@ function Navigation({
   }, []);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-[100] border-b border-white/15 bg-[#1f1f1f] shadow-[0_8px_30px_rgba(0,0,0,0.18)] md:bg-[#1f1f1f]/90 md:backdrop-blur-sm">
+    <nav className="relative z-[100] border-b border-white/15 bg-[#1f1f1f] shadow-[0_8px_30px_rgba(0,0,0,0.18)] md:fixed md:inset-x-0 md:top-0 md:bg-[#1f1f1f]/90 md:backdrop-blur-sm">
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 md:py-5">
         <div className="flex items-center justify-between">
           <button
@@ -85,7 +85,7 @@ function Navigation({
               onClick={onToggleTheme}
               aria-label={isLightMode ? "Switch to dark mode" : "Switch to light mode"}
               title={isLightMode ? "Switch to dark mode" : "Switch to light mode"}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-[#f8f7f9]/70 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.18)]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-[#f8f7f9]/70 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.18)] md:h-10 md:w-10"
             >
               {isLightMode ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
             </button>
@@ -95,7 +95,7 @@ function Navigation({
               target="_blank"
               rel="noreferrer"
               aria-label="Visit Israel Loya on LinkedIn"
-              className="flex h-10 items-center gap-2 font-['Poppins:Medium',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-colors duration-200 hover:text-[#7cf5a5]"
+              className="flex h-11 items-center gap-2 font-['Poppins:Medium',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-colors duration-200 hover:text-[#7cf5a5] md:h-10"
             >
               <Linkedin className="h-5 w-5 sm:hidden" />
               <span className="hidden sm:inline">LinkedIn</span>
@@ -106,7 +106,7 @@ function Navigation({
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
               aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              className="flex h-10 items-center justify-center gap-2 rounded-full border border-white/20 px-3 text-[#f8f7f9]/70 transition-all hover:border-[#7cf5a5]/70 hover:text-[#7cf5a5] md:hidden"
+              className="flex h-11 items-center justify-center gap-2 rounded-full border border-white/20 px-3 text-[#f8f7f9]/70 transition-all hover:border-[#7cf5a5]/70 hover:text-[#7cf5a5] md:hidden"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               <span className="hidden font-['Poppins:Medium',_sans-serif] text-[13px] min-[380px]:inline">
@@ -117,7 +117,7 @@ function Navigation({
         </div>
 
         {isMobileMenuOpen && (
-          <div id="mobile-navigation" className="grid gap-1 border-t border-white/10 pt-4 mt-4 md:hidden">
+          <div id="mobile-navigation" className="mt-4 grid gap-1 border-t border-white/10 pt-4 md:hidden">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -148,7 +148,7 @@ function HeroSection() {
   };
 
   return (
-    <section id="home" className="relative flex min-h-screen scroll-mt-20 items-center justify-center overflow-hidden pt-28 lg:pt-20">
+    <section id="home" className="relative flex min-h-screen scroll-mt-20 items-center justify-center overflow-hidden pt-10 md:pt-28 lg:pt-20">
       {/* Background blur effect */}
       <div className="absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 sm:h-[760px] sm:w-[760px] lg:h-[897px] lg:w-[905px]">

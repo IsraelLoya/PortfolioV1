@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowUpRight, ChevronDown, Linkedin, Mail, MapPin, Moon, Phone, Sun } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Linkedin, Mail, MapPin, Menu, Moon, Phone, Sun, X } from "lucide-react";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import israelHeadshot from "../imports/image.png";
 
@@ -11,6 +11,7 @@ function Navigation({
   onToggleTheme: () => void;
 }) {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'home', label: 'Home' },
@@ -25,6 +26,7 @@ function Navigation({
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -52,15 +54,23 @@ function Navigation({
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1f1f1f]/90 backdrop-blur-sm border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-12">
+    <nav className="fixed inset-x-0 top-0 z-[100] border-b border-white/15 bg-[#1f1f1f] shadow-[0_8px_30px_rgba(0,0,0,0.18)] md:bg-[#1f1f1f]/90 md:backdrop-blur-sm">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 md:py-5">
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => scrollToSection("home")}
+            className="font-['Poppins:Bold',_sans-serif] text-[16px] tracking-[0.08em] text-[#f8f7f9] md:hidden"
+          >
+            IL
+          </button>
+
+          <div className="hidden items-center gap-6 md:flex lg:gap-10">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`font-['Poppins:Regular',_sans-serif] text-[18px] transition-colors duration-200 ${
+                className={`font-['Poppins:Regular',_sans-serif] text-[16px] transition-colors duration-200 lg:text-[18px] ${
                   activeSection === item.id ? 'text-[#f8f7f9]' : 'text-[#f8f7f9]/70 hover:text-[#f8f7f9]'
                 }`}
               >
@@ -69,7 +79,7 @@ function Navigation({
             ))}
           </div>
           
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
             <button
               type="button"
               onClick={onToggleTheme}
@@ -79,17 +89,51 @@ function Navigation({
             >
               {isLightMode ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
             </button>
-            <div className="h-11 w-px bg-[#f8f7f9]" />
+            <div className="hidden h-11 w-px bg-[#f8f7f9] sm:block" />
             <a
               href="https://www.linkedin.com/in/israel-loya-28186317b"
               target="_blank"
               rel="noreferrer"
-              className="font-['Poppins:Medium',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-colors duration-200 hover:text-[#f8f7f9]"
+              aria-label="Visit Israel Loya on LinkedIn"
+              className="flex h-10 items-center gap-2 font-['Poppins:Medium',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-colors duration-200 hover:text-[#7cf5a5]"
             >
-              LinkedIn
+              <Linkedin className="h-5 w-5 sm:hidden" />
+              <span className="hidden sm:inline">LinkedIn</span>
             </a>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((current) => !current)}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
+              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              className="flex h-10 items-center justify-center gap-2 rounded-full border border-white/20 px-3 text-[#f8f7f9]/70 transition-all hover:border-[#7cf5a5]/70 hover:text-[#7cf5a5] md:hidden"
+            >
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className="hidden font-['Poppins:Medium',_sans-serif] text-[13px] min-[380px]:inline">
+                {isMobileMenuOpen ? "CLOSE" : "MENU"}
+              </span>
+            </button>
           </div>
         </div>
+
+        {isMobileMenuOpen && (
+          <div id="mobile-navigation" className="grid gap-1 border-t border-white/10 pt-4 mt-4 md:hidden">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => scrollToSection(item.id)}
+                className={`rounded-xl px-4 py-3 text-left font-['Poppins:Medium',_sans-serif] text-[16px] transition-colors ${
+                  activeSection === item.id
+                    ? "bg-[#7cf5a5]/10 text-[#7cf5a5]"
+                    : "text-[#f8f7f9]/70 hover:bg-white/[0.05] hover:text-[#f8f7f9]"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );
@@ -104,10 +148,10 @@ function HeroSection() {
   };
 
   return (
-    <section id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative flex min-h-screen scroll-mt-20 items-center justify-center overflow-hidden pt-28 lg:pt-20">
       {/* Background blur effect */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[905px] h-[897px]">
+        <div className="absolute left-1/2 top-1/2 h-[620px] w-[620px] -translate-x-1/2 -translate-y-1/2 sm:h-[760px] sm:w-[760px] lg:h-[897px] lg:w-[905px]">
           <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" viewBox="0 0 1417 1409">
               <defs>
@@ -128,36 +172,46 @@ function HeroSection() {
         </div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-0 px-4 sm:px-6 lg:grid-cols-2 lg:gap-12">
         {/* Left content */}
-        <div className="space-y-8">
+        <div className="order-2 space-y-7 lg:order-1">
           <div className="space-y-4">
-            <h2 className="font-['Poppins:Bold',_sans-serif] text-[24px] text-[#f8f7f9]">
+            <h2 className="font-['Poppins:Bold',_sans-serif] text-[18px] text-[#f8f7f9] sm:text-[21px] lg:text-[24px]">
               HI, I'M ISRAEL LOYA
             </h2>
-            <h1 className="font-['Poppins:Bold',_sans-serif] text-[56px] lg:text-[88px] leading-[0.92] text-[#f8f7f9]">
+            <h1 className="font-['Poppins:Bold',_sans-serif] text-[48px] leading-[0.92] text-[#f8f7f9] sm:text-[64px] lg:text-[88px]">
               SECURITY<br />&amp; TECH
             </h1>
           </div>
           
           <button 
             onClick={scrollToProjects}
-            className="group border-2 border-[#f8f7f9] px-8 py-4 rounded-2xl transition-all duration-300 hover:border-[#7cf5a5] hover:bg-[#7cf5a5] hover:shadow-[0_0_28px_rgba(124,245,165,0.22)]"
+            className="group w-full rounded-2xl border-2 border-[#f8f7f9] px-6 py-3.5 transition-all duration-300 hover:border-[#7cf5a5] hover:bg-[#7cf5a5] hover:shadow-[0_0_28px_rgba(124,245,165,0.22)] sm:w-auto sm:px-8 sm:py-4"
           >
-            <span className="font-['Poppins:Bold',_sans-serif] text-[24px] text-[#f8f7f9] group-hover:text-[#1f1f1f] transition-colors duration-300">
+            <span className="font-['Poppins:Bold',_sans-serif] text-[18px] text-[#f8f7f9] transition-colors duration-300 group-hover:text-[#1f1f1f] sm:text-[21px] lg:text-[24px]">
               VIEW MY PROJECTS
             </span>
           </button>
         </div>
 
         {/* Right content - Background-removed headshot */}
-        <div className="relative">
-          <div className="relative h-[600px] w-full overflow-visible lg:h-[800px]">
+        <div className="relative order-1 mx-auto mb-7 flex w-full justify-center lg:order-2 lg:mb-0 lg:block">
+          <div className="relative h-[230px] w-[230px] rounded-full border-2 border-[#7cf5a5]/45 bg-white/[0.04] p-2 shadow-[0_0_40px_rgba(124,245,165,0.14)] sm:h-[280px] sm:w-[280px] lg:hidden">
+            <div className="h-full w-full overflow-hidden rounded-full">
+              <ImageWithFallback
+                src={israelHeadshot}
+                alt="Israel Loya"
+                className="h-full w-full scale-[1.1] object-contain object-top"
+              />
+            </div>
+          </div>
+
+          <div className="relative hidden h-[800px] w-full overflow-visible lg:block">
             <div className="absolute inset-x-[12%] bottom-[5%] h-1/2 rounded-full bg-white/[0.06] blur-3xl" />
             <ImageWithFallback
               src={israelHeadshot}
               alt="Israel Loya"
-              className="relative h-full w-full origin-bottom scale-[1.08] object-contain object-bottom lg:scale-[1.12]"
+              className="relative h-full w-full origin-bottom scale-[1.12] object-contain object-bottom"
             />
           </div>
         </div>
@@ -168,24 +222,24 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section id="about" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="font-['Poppins:Bold',_sans-serif] text-[96px] text-[#f8f7f9] mb-12">
+    <section id="about" className="relative scroll-mt-20 py-14 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="mb-8 font-['Poppins:Bold',_sans-serif] text-[48px] leading-none text-[#f8f7f9] sm:text-[64px] lg:mb-12 lg:text-[96px]">
           About me
         </h2>
         
         <div className="max-w-4xl">
-          <p className="font-['Poppins:Regular',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5] mb-8">
+          <p className="mb-6 font-['Poppins:Regular',_sans-serif] text-[18px] leading-[1.65] text-[rgba(248,247,249,0.5)] sm:text-[21px] lg:mb-8 lg:text-[24px]">
             I’m a versatile operations and technology professional with experience in federal security, workplace safety, employee development, technical support, and procedural compliance. My work includes operating and monitoring screening systems, performing equipment readiness checks, compiling operational data, documenting findings, and coordinating corrective actions.
           </p>
-          <p className="font-['Poppins:Regular',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5]">
+          <p className="font-['Poppins:Regular',_sans-serif] text-[18px] leading-[1.65] text-[rgba(248,247,249,0.5)] sm:text-[21px] lg:text-[24px]">
             Alongside my work with the Transportation Security Administration, I’m pursuing a Bachelor of Applied Technology in Software Development at Collin College. I build and troubleshoot custom PCs, configure Windows systems, and develop responsive websites and web applications using modern development tools.
           </p>
         </div>
 
         {/* Skills */}
-        <div className="mt-16">
-          <h3 className="font-['Poppins:Bold',_sans-serif] text-[24px] text-[#f8f7f9] mb-8">
+        <div className="mt-12 sm:mt-16">
+          <h3 className="mb-6 font-['Poppins:Bold',_sans-serif] text-[20px] text-[#f8f7f9] sm:mb-8 sm:text-[24px]">
             CORE SKILLS
           </h3>
           <div className="flex max-w-5xl flex-wrap gap-3">
@@ -220,7 +274,7 @@ function AboutSection() {
             ].map((skill) => (
               <span
                 key={skill}
-                className="rounded-full border border-white/20 px-4 py-2 font-['Poppins:Medium',_sans-serif] text-[16px] text-[#f8f7f9]/60 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.2)]"
+                className="rounded-full border border-white/20 px-3.5 py-2 font-['Poppins:Medium',_sans-serif] text-[14px] text-[#f8f7f9]/60 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.2)] sm:px-4 sm:text-[16px]"
               >
                 {skill}
               </span>
@@ -229,27 +283,27 @@ function AboutSection() {
         </div>
 
         {/* Education */}
-        <div className="mt-16">
-          <h3 className="font-['Poppins:Bold',_sans-serif] text-[24px] text-[#f8f7f9] mb-8">
+        <div className="mt-12 sm:mt-16">
+          <h3 className="mb-6 font-['Poppins:Bold',_sans-serif] text-[20px] text-[#f8f7f9] sm:mb-8 sm:text-[24px]">
             EDUCATION
           </h3>
           <div className="max-w-4xl space-y-8">
             <div>
-              <h4 className="font-['Poppins:ExtraBold',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-1">
+              <h4 className="mb-1 font-['Poppins:ExtraBold',_sans-serif] text-[20px] text-[rgba(248,247,249,0.5)] sm:text-[24px]">
                 BACHELOR OF APPLIED TECHNOLOGY (BAT) IN SOFTWARE DEVELOPMENT
               </h4>
-              <p className="font-['Poppins:ExtraLight',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-3">
+              <p className="mb-3 font-['Poppins:ExtraLight',_sans-serif] text-[18px] text-[rgba(248,247,249,0.5)] sm:text-[22px] lg:text-[24px]">
                 Collin College · In Progress
               </p>
-              <p className="font-['Poppins:Medium',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] leading-[1.5]">
+              <p className="font-['Poppins:Medium',_sans-serif] text-[18px] leading-[1.65] text-[rgba(248,247,249,0.5)] sm:text-[21px] lg:text-[24px]">
                 Coursework and applied projects cover software development fundamentals, responsive web applications, React and Vite workflows, Git and GitHub version control, Vercel deployment, Java, Python, C++, SQL, relational database design, debugging, testing, and the software development lifecycle.
               </p>
             </div>
             <div>
-              <h4 className="font-['Poppins:ExtraBold',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-1">
+              <h4 className="mb-1 font-['Poppins:ExtraBold',_sans-serif] text-[20px] text-[rgba(248,247,249,0.5)] sm:text-[24px]">
                 HIGH SCHOOL DIPLOMA
               </h4>
-              <p className="font-['Poppins:ExtraLight',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)]">
+              <p className="font-['Poppins:ExtraLight',_sans-serif] text-[18px] text-[rgba(248,247,249,0.5)] sm:text-[22px] lg:text-[24px]">
                 Memorial Preparatory School · 2016 — 2018
               </p>
             </div>
@@ -257,11 +311,11 @@ function AboutSection() {
         </div>
 
         {/* Experience */}
-        <div className="mt-16">
-          <h3 className="font-['Poppins:Bold',_sans-serif] text-[24px] text-[#f8f7f9] mb-8">
+        <div className="mt-12 sm:mt-16">
+          <h3 className="mb-6 font-['Poppins:Bold',_sans-serif] text-[20px] text-[#f8f7f9] sm:mb-8 sm:text-[24px]">
             Experience
           </h3>
-          <div className="space-y-12">
+          <div className="space-y-10 sm:space-y-12">
             <ExperienceItem
               title="SAFETY OFFICER"
               period="U.S. Department of Homeland Security · Transportation Security Administration · Aug 2026 — Present"
@@ -327,17 +381,17 @@ function ExperienceItem({
 }) {
   return (
     <div className="max-w-4xl">
-      <h4 className="font-['Poppins:ExtraBold',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-1">
+      <h4 className="mb-1 font-['Poppins:ExtraBold',_sans-serif] text-[20px] text-[rgba(248,247,249,0.5)] sm:text-[24px]">
         {title}
       </h4>
-      <p className="font-['Poppins:ExtraLight',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-3">
+      <p className="mb-3 font-['Poppins:ExtraLight',_sans-serif] text-[17px] leading-[1.5] text-[rgba(248,247,249,0.5)] sm:text-[21px] lg:text-[24px]">
         {period}
       </p>
       <ul className="space-y-3">
         {description.map((item) => (
           <li
             key={item}
-            className="flex gap-3 font-['Poppins:Medium',_sans-serif] text-[24px] leading-[1.5] text-[rgba(248,247,249,0.5)]"
+            className="flex gap-3 font-['Poppins:Medium',_sans-serif] text-[17px] leading-[1.65] text-[rgba(248,247,249,0.5)] sm:text-[20px] lg:text-[24px]"
           >
             <span aria-hidden="true">•</span>
             <span>{item}</span>
@@ -357,40 +411,40 @@ function ProjectsSection() {
     },
     {
       title: "IT Help Desk Ticketing Dashboard",
-      period: "Concept Project · In Progress",
+      period: "Under Construction",
       description: "A support dashboard for logging, prioritizing, assigning, and resolving technical issues. Planned features include ticket status tracking, searchable troubleshooting notes, device details, response metrics, and a clean workflow for common hardware, software, account, and connectivity requests."
     },
     {
       title: "Home Network Monitoring Lab",
-      period: "Technical Lab · In Progress",
+      period: "Under Construction",
       description: "A hands-on networking environment for practicing device discovery, IP configuration, connectivity testing, performance monitoring, and basic security hardening. The lab documents network layouts, troubleshooting steps, observed issues, and practical improvements for a reliable home network."
     },
     {
       title: "Equipment Inventory Management App",
-      period: "Software Development Project · In Progress",
+      period: "Under Construction",
       description: "A responsive application concept for tracking computers, peripherals, maintenance history, and equipment assignments. Planned functionality includes searchable records, status filters, asset details, service reminders, and simple reporting for organized inventory management."
     },
     {
       title: "Security Procedure Knowledge Base",
-      period: "Documentation Project · In Progress",
+      period: "Under Construction",
       description: "A structured knowledge base concept that turns technical and operational procedures into clear, searchable guides. The project focuses on concise step-by-step instructions, consistent documentation, revision tracking, and quick access to troubleshooting and safety information."
     },
     {
       title: "Personal Portfolio Website",
-      period: "Web Development Project · Ongoing",
+      period: "Live Project · This Portfolio",
       description: "A responsive React and Vite portfolio designed to present professional experience, education, certifications, technical skills, and project work. The site uses Git and GitHub for version control and includes accessible navigation, persistent light and dark themes, reusable content sections, and polished interactions across desktop and mobile layouts."
     }
   ];
   const [openProject, setOpenProject] = useState(projects[0].title);
 
   return (
-    <section id="projects" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="mb-12 font-['Poppins:Bold',_sans-serif] text-[96px] text-[#f8f7f9]">
+    <section id="projects" className="relative scroll-mt-20 py-14 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="mb-8 font-['Poppins:Bold',_sans-serif] text-[48px] leading-none text-[#f8f7f9] sm:text-[64px] lg:mb-12 lg:text-[96px]">
           Projects
         </h2>
 
-        <p className="mb-8 font-['Poppins:Regular',_sans-serif] text-[18px] text-[#f8f7f9]/50">
+        <p className="mb-6 font-['Poppins:Regular',_sans-serif] text-[16px] text-[#f8f7f9]/50 sm:mb-8 sm:text-[18px]">
           Select a project to learn more about it.
         </p>
 
@@ -438,14 +492,14 @@ function ProjectItem({
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="group flex w-full cursor-pointer items-start justify-between gap-4 rounded-md py-7 text-left outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#7cf5a5]/60"
+        className="group flex w-full cursor-pointer items-start justify-between gap-3 rounded-md py-5 text-left outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#7cf5a5]/60 sm:gap-4 sm:py-7"
       >
-        <div className="relative pl-8">
-          <div className="absolute left-0 top-[9px] h-[12px] w-[12px] rounded-[4px] bg-white/60 transition-all duration-300 group-hover:bg-[#7cf5a5] group-hover:shadow-[0_0_14px_rgba(124,245,165,0.5)]" />
-          <h3 className="mb-1 font-['Poppins:ExtraBold',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] transition-colors duration-300 group-hover:text-[#7cf5a5]">
+        <div className="relative pl-6 sm:pl-8">
+          <div className="absolute left-0 top-[7px] h-[10px] w-[10px] rounded-[3px] bg-white/60 transition-all duration-300 group-hover:bg-[#7cf5a5] group-hover:shadow-[0_0_14px_rgba(124,245,165,0.5)] sm:top-[9px] sm:h-[12px] sm:w-[12px] sm:rounded-[4px]" />
+          <h3 className="mb-1 font-['Poppins:ExtraBold',_sans-serif] text-[20px] leading-tight text-[rgba(248,247,249,0.5)] transition-colors duration-300 group-hover:text-[#7cf5a5] sm:text-[24px]">
             {title}
           </h3>
-          <p className="font-['Poppins:ExtraLight',_sans-serif] text-[18px] text-[rgba(248,247,249,0.5)]">
+          <p className="font-['Poppins:ExtraLight',_sans-serif] text-[15px] text-[rgba(248,247,249,0.5)] sm:text-[18px]">
             {period}
           </p>
         </div>
@@ -456,8 +510,8 @@ function ProjectItem({
         />
       </button>
       {isOpen && (
-        <div className="pb-7 pl-8 pr-12">
-          <p className="font-['Poppins:Medium',_sans-serif] text-[20px] leading-[1.6] text-[rgba(248,247,249,0.5)]">
+        <div className="pb-6 pl-6 pr-2 sm:pb-7 sm:pl-8 sm:pr-12">
+          <p className="font-['Poppins:Medium',_sans-serif] text-[17px] leading-[1.65] text-[rgba(248,247,249,0.5)] sm:text-[20px]">
             {description}
           </p>
         </div>
@@ -476,24 +530,24 @@ function CertificationsSection() {
   ];
 
   return (
-    <section id="certifications" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="font-['Poppins:Bold',_sans-serif] text-[96px] text-[#f8f7f9] mb-12">
+    <section id="certifications" className="relative scroll-mt-20 py-14 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="mb-8 font-['Poppins:Bold',_sans-serif] text-[44px] leading-none text-[#f8f7f9] sm:text-[64px] lg:mb-12 lg:text-[96px]">
           Certifications
         </h2>
         
         <div className="space-y-8">
           {certifications.map((cert, index) => (
             <div key={index} className="max-w-4xl relative">
-              <div className="pl-8 relative">
-                <div className="absolute left-[-9px] top-[11px] h-[15px] w-[15px] rounded-[5px] bg-white/80 blur-[0.5px]" />
-                <h3 className="font-['Poppins:ExtraBold',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-1">
+              <div className="relative pl-6 sm:pl-8">
+                <div className="absolute left-0 top-[7px] h-[10px] w-[10px] rounded-[3px] bg-white/80 blur-[0.5px] sm:left-[-9px] sm:top-[11px] sm:h-[15px] sm:w-[15px] sm:rounded-[5px]" />
+                <h3 className="mb-1 font-['Poppins:ExtraBold',_sans-serif] text-[20px] leading-tight text-[rgba(248,247,249,0.5)] sm:text-[24px]">
                   {cert.title}
                 </h3>
-                <p className="font-['Poppins:ExtraLight',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)] mb-2">
+                <p className="mb-2 font-['Poppins:ExtraLight',_sans-serif] text-[18px] text-[rgba(248,247,249,0.5)] sm:text-[24px]">
                   {cert.year}
                 </p>
-                <p className="font-['Poppins:Medium',_sans-serif] text-[24px] text-[rgba(248,247,249,0.5)]">
+                <p className="font-['Poppins:Medium',_sans-serif] text-[18px] text-[rgba(248,247,249,0.5)] sm:text-[24px]">
                   {cert.organization}
                 </p>
               </div>
@@ -533,23 +587,23 @@ function ContactsSection() {
   ];
 
   return (
-    <section id="contacts" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] p-8 md:p-12 lg:p-16">
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+    <section id="contacts" className="relative scroll-mt-20 py-14 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.03] p-5 sm:rounded-[32px] sm:p-8 md:p-12 lg:p-16">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
             <div>
               <p className="mb-5 font-['Poppins:Bold',_sans-serif] text-[14px] uppercase tracking-[0.24em] text-[#7cf5a5]">
                 Get in touch
               </p>
-              <h2 className="font-['Poppins:Bold',_sans-serif] text-[56px] leading-[1] text-[#f8f7f9] md:text-[72px]">
+              <h2 className="font-['Poppins:Bold',_sans-serif] text-[44px] leading-[1] text-[#f8f7f9] sm:text-[56px] md:text-[72px]">
                 Let&apos;s connect.
               </h2>
-              <p className="mt-7 max-w-xl font-['Poppins:Regular',_sans-serif] text-[20px] leading-[1.6] text-[#f8f7f9]/50">
+              <p className="mt-6 max-w-xl font-['Poppins:Regular',_sans-serif] text-[17px] leading-[1.65] text-[#f8f7f9]/50 sm:mt-7 sm:text-[20px]">
                 Have an opportunity, project, or role in mind? I&apos;d be glad to discuss how my federal security, workplace safety, technical support, and software development experience can help your team.
               </p>
               <a
                 href="mailto:IsraelLoya2222@gmail.com"
-                className="mt-9 inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3 font-['Poppins:Bold',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.2)]"
+                className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full border border-white/20 px-6 py-3 font-['Poppins:Bold',_sans-serif] text-[16px] text-[#f8f7f9]/70 transition-all duration-300 hover:border-[#7cf5a5]/70 hover:bg-[#7cf5a5]/10 hover:text-[#7cf5a5] hover:shadow-[0_0_20px_rgba(124,245,165,0.2)] sm:mt-9 sm:w-auto"
               >
                 Send me an email
                 <ArrowUpRight className="h-5 w-5" />
@@ -584,14 +638,14 @@ function ContactsSection() {
                     href={item.href}
                     target={item.label === "LinkedIn" ? "_blank" : undefined}
                     rel={item.label === "LinkedIn" ? "noreferrer" : undefined}
-                    className="group rounded-[20px] border border-white/10 bg-[#1f1f1f] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#7cf5a5]/40 hover:bg-[#7cf5a5]/[0.04]"
+                    className="group rounded-[20px] border border-white/10 bg-[#1f1f1f] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-[#7cf5a5]/40 hover:bg-[#7cf5a5]/[0.04] sm:p-6"
                   >
                     {content}
                   </a>
                 ) : (
                   <div
                     key={item.label}
-                    className="group rounded-[20px] border border-white/10 bg-[#1f1f1f] p-6"
+                    className="group rounded-[20px] border border-white/10 bg-[#1f1f1f] p-5 sm:p-6"
                   >
                     {content}
                   </div>
